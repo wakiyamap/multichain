@@ -178,3 +178,16 @@ services:
       - "${C_AVAX_PK}"
       - "${C_AVAX_HEX_ADDRESS}"
       - "${C_AVAX_BECH32_ADDRESS}"
+
+  #
+  # Monacoin
+  #
+  monacoin:
+    build:
+      context: ./monacoin
+    ports:
+      - "0.0.0.0:19402:19402"
+    entrypoint:
+      - "./root/run.sh"
+      - "${MONACOIN_ADDRESS}"
+      - "${MONACOIN_PK}"

@@ -112,6 +112,7 @@ const (
 	GLMR   = Asset("GLMR")   // Glimmer
 	LUNA   = Asset("LUNA")   // Luna
 	MATIC  = Asset("MATIC")  // Matic PoS (Polygon)
+	MONA   = Asset("MONA")   // Mona
 	SOL    = Asset("SOL")    // Solana
 	ZEC    = Asset("ZEC")    // Zcash
 
@@ -151,6 +152,8 @@ func (asset Asset) OriginChain() Chain {
 		return Terra
 	case MATIC:
 		return Polygon
+	case MONA:
+		return Monacoin
 	case SOL:
 		return Solana
 	case ZEC:
@@ -176,7 +179,7 @@ func (asset Asset) OriginChain() Chain {
 // ChainType returns the chain-type (Account or UTXO) for the given asset
 func (asset Asset) ChainType() ChainType {
 	switch asset {
-	case BCH, BTC, DGB, DOGE, ZEC:
+	case BCH, BTC, DGB, DOGE, MONA, ZEC:
 		return ChainTypeUTXOBased
 	case AVAX, BNB, ETH, FIL, GLMR, LUNA, MATIC, ArbETH:
 		return ChainTypeAccountBased
@@ -227,6 +230,7 @@ const (
 	Ethereum          = Chain("Ethereum")
 	Fantom            = Chain("Fantom")
 	Filecoin          = Chain("Filecoin")
+	Monacoin          = Chain("Monacoin")
 	Moonbeam          = Chain("Moonbeam")
 	Polygon           = Chain("Polygon")
 	Solana            = Chain("Solana")
@@ -263,7 +267,7 @@ func (chain *Chain) Unmarshal(buf []byte, rem int) ([]byte, int, error) {
 // for the chain.
 func (chain Chain) ChainType() ChainType {
 	switch chain {
-	case Bitcoin, BitcoinCash, DigiByte, Dogecoin, Zcash:
+	case Bitcoin, BitcoinCash, DigiByte, Dogecoin, Monacoin, Zcash:
 		return ChainTypeUTXOBased
 	case Avalanche, BinanceSmartChain, Ethereum, Arbitrum, Fantom, Filecoin, Moonbeam, Polygon, Solana, Terra:
 		return ChainTypeAccountBased
@@ -315,6 +319,8 @@ func (chain Chain) NativeAsset() Asset {
 		return FTM
 	case Filecoin:
 		return FIL
+	case Monacoin:
+		return MONA
 	case Moonbeam:
 		return GLMR
 	case Polygon:

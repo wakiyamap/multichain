@@ -1,0 +1,1 @@
+package monacoin_test
